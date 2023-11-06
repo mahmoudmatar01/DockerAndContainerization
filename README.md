@@ -11,7 +11,9 @@ This repository serves as an introduction to Docker and explores the differences
 - [Docker Architecture](#docker-architecture-overview)
 - [Managing Docker Images](#managing-docker-images)
 - [Managing Docker Containers](#managing-docker-containers)
-- [Running Docker Containers](#running-docker-containers) 
+- [Running Docker Containers](#running-docker-containers)
+- [Creating a Docker Image for Your Java Project](#Creating-a-Docker-Image-for-Your-Java-Project)
+- [Sharing or Deploying Your Docker Image](#Sharing-or-Deploying-Your-Docker-Image)
 
 ## Docker Introduction
 
@@ -277,4 +279,84 @@ Run the container in interactive mode (-it).
 Use the my-app-image Docker image.
 
 
+## Creating a Docker Image for Your Java Project
 
+Docker enables you to containerize your Java project, making it portable and consistent across different environments. To create a Docker image for your Java project, follow these steps:
+
+### Step 1: Set Up a Dockerfile
+
+1. In your project directory, create a Dockerfile. The Dockerfile is a text file that defines the configuration and content of the Docker image.
+
+2. Choose a suitable base image for your Java application. You can use official OpenJDK images or other Java images based on your project's Java version. For example, to use OpenJDK 11, add the following line to your Dockerfile:
+   
+3. Use the COPY instruction in the Dockerfile to copy your Java project's build artifacts and any other necessary files into the image. For instance, to copy a JAR file into the image
+    
+```Dockerfile
+# Use an official OpenJDK image as the base image
+FROM openjdk:11
+
+# Copy the Spring Boot application JAR into the image
+COPY target/my-spring-boot-app.jar /app.jar
+
+# Set an environment variable
+ENV SPRING_PROFILES_ACTIVE=production
+
+# Expose port 8080 for the Spring Boot application
+EXPOSE 8080
+
+# Start the Spring Boot application
+CMD ["java", "-jar", "/app.jar"]
+```
+
+### Step 2: Build the Docker Image
+Open a terminal and navigate to your project directory containing the Dockerfile.
+
+Build the Docker image using the docker build command. Replace your-image-name with a name for your Docker image and your-tag with a version or tag for the image:
+
+```bash
+ docker build -t your-image-name:your-tag 
+```
+
+### Step 3: Verify the Image
+After the build process completes, you can verify that the image was created by running the docker images command:
+
+``` bash
+docker images
+```
+
+### Step 4: Run the Container (Optional)
+You can test your Docker image by running a container from it:
+
+``` bash
+docker run -d --name your-container-name your-image-name:your-tag
+```
+
+### Step 5: Share or Deploy
+Once you have your Docker image, you can push it to a container registry (like Docker Hub) to share it with others or use it to deploy your Java project on different systems.
+
+
+## Sharing or Deploying Your Docker Image
+
+After creating a Docker image for your project, you can share it with others or deploy your application on different systems. Here are the steps to share or deploy your Docker image:
+
+### Step 1: Push Your Image to a Container Registry (Sharing)
+
+1.1. Log in to the container registry where you want to store your Docker image. Docker Hub (https://hub.docker.com/) is a popular choice, but there are other container registries available as well.
+
+```bash
+docker login
+```
+
+1.2. Tag your Docker image with the repository and version. Replace your-docker-hub-username with your Docker Hub username or organization name and your-image-name and your-tag with your image details.
+
+``` bash
+docker tag your-image-name:your-tag your-docker-hub-username/your-image-name:your-tag
+```
+
+1.3. Push your image to the container registry:
+
+```bash
+docker push your-docker-hub-username/your-image-name:your-tag
+```
+
+1.4. Your image is now available on the container registry, and others can pull it using `docker pull`.
