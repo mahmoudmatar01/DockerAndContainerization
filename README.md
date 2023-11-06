@@ -11,6 +11,7 @@ This repository serves as an introduction to Docker and explores the differences
 - [Docker Architecture](#docker-architecture-overview)
 - [Managing Docker Images](#managing-docker-images)
 - [Managing Docker Containers](#managing-docker-containers)
+- [Running Docker Containers](#running-docker-containers) 
 
 ## Docker Introduction
 
@@ -213,6 +214,67 @@ docker rm container_id
 ```
 
 
+## Running Docker Containers
+
+The `docker run` command is fundamental for launching Docker containers. It allows you to create and run containers based on Docker images. In this section, we'll explore the `docker run` command and some common options.
+
+### Basic `docker run` Command
+
+The basic syntax of the `docker run` command is as follows:
+
+```bash
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+```
+
+OPTIONS are used to customize container behavior.
+IMAGE specifies the Docker image to use.
+COMMAND (optional) is the command to run inside the container.
+ARG (optional) provides arguments to the command.
+
+# Common Options
+
+-d (Detached Mode)
+Use the -d option to run a container in detached mode. This means the container runs in the background, and you get your terminal back for other tasks.
+```bash
+docker run -d IMAGE
+```
+
+-p (Port Mapping)
+The -p option is used to map a container's port to a port on the host system. This is essential for exposing services running inside the container to the outside world.
+
+Example:
+```bash
+docker run -p HOST_PORT:CONTAINER_PORT IMAGE
+```
+
+-it (Interactive Mode)
+Combine the -i and -t options to run a container in interactive mode. This is often used for running containers that require user interaction, like a terminal session.
+
+Example:
+```bash
+docker run -it IMAGE
+```
+
+-e (Environment Variables)
+Use the -e option to set environment variables inside the container. This is useful for configuring application-specific settings.
+
+Example:
+```bash
+docker run -e VAR_NAME=VAR_VALUE IMAGE
+```
+
+Putting It All Together
+Here's an example of using multiple options with the docker run command:
+```bash
+docker run -d -p 8080:80 -e APP_ENV=production -it my-app-image
+```
+In this command, we:
+
+Run a container in detached mode (-d).
+Map host port 8080 to container port 80 (-p).
+Set an environment variable APP_ENV to production (-e).
+Run the container in interactive mode (-it).
+Use the my-app-image Docker image.
 
 
 
