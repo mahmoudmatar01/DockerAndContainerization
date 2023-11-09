@@ -1,11 +1,7 @@
 # Introduction to Docker and Containerization
 
-<h3 align="center">
-  Welcome To Docker World
-  <img src="https://bunnyacademy.b-cdn.net/what-is-docker.png" width="28">
-</h3>
 
-<img src="https://bunnyacademy.b-cdn.net/what-is-docker.png" height="300" width="2000">
+<img src="https://bunnyacademy.b-cdn.net/what-is-docker.png" height="300" width="800" align="center">
 
 This repository serves as an introduction to Docker and explores the differences between virtualization and containerization. It aims to provide a basic understanding of containerization technology and its advantages over traditional virtualization.
 
